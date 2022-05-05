@@ -147,7 +147,7 @@ int main()
 		}
 		if (c == 'd') // удаление заметки
 		{
-			if (ANotes.size() > 0) ////// tut potyadok navesti
+			if (ANotes.size() > 0)
 			{
 				std::cout << "Count of notes - " << ANotes.size() << std::endl;
 				int i;
