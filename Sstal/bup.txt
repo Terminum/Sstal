@@ -1,0 +1,115 @@
+#include <iostream>
+#include <vector>
+#include <fstream>
+#include <string>
+
+class Notes
+{
+private:
+	std::string subject;
+	std::string note;
+public:
+	Notes() 
+	{
+		subject = "Test",
+		note = "Test note.";
+	}
+
+	std::string getSub()
+	{
+		return subject;
+	}
+
+	void setSub()
+	{
+		std::cout << "Subject : ";
+		std::cin.ignore(32767, '\n');
+		//std::cin.clear();
+		std::getline(std::cin, subject);
+		subject.resize(15);
+
+	}
+
+	void setNote()
+	{
+		
+		std::cout << "Note : ";
+		//std::cin.ignore(32767, '\n');
+		//std::cin.clear();
+		std::getline(std::cin, note);
+		
+	}
+	friend std::ostream& operator<< (std::ostream& out, const Notes& Note);
+};
+
+std::ostream& operator<< (std::ostream& out, const Notes& Note)
+{
+	std::cout << "Subject : " << Note.subject << "..." << std::endl;
+	std::cout << "Note : " << Note.note << std::endl;
+	return out;
+}
+
+int main()
+{
+	std::vector<Notes> ANotes;
+	char c;
+	std::cout << "Menu : <a> - Add Note, <p> - Print all notes, <c> - for clear screen, <x> Print one note, <r> - Change note, <e> - Exit \n-> ";
+	std::cin >> c;
+	while (c != 'e')
+	{
+		if (c == 'a')
+		{
+			Notes n;
+			
+			n.setSub();
+			
+			n.setNote();
+			ANotes.push_back(n);
+			system("cls");
+		}
+		if (c == 'p')
+		{
+			for (int i = 0; i < ANotes.size(); i++)
+			{
+				std::cout << i + 1 << " -> " << ANotes[i].getSub() << std::endl;
+			}
+		}
+		if (c == 'r')
+		{
+			if (ANotes.size() > 0)
+			{
+				std::cout << "Count of notes - " << ANotes.size() << std::endl;
+				int i;
+				std::cout << "Enter number of note : ";
+				std::cin >> i;
+				if ((i > 0) and (i <= ANotes.size()))
+				{
+					ANotes[i - 1].getSub();
+					ANotes[i - 1].setNote();
+				}
+			}
+			else std::cout << "No notes";
+		}
+		if (c == 'c')
+		{
+			system("cls");
+		}
+		if (c == 'x')
+		{
+			if (ANotes.size() > 0)
+			{
+				std::cout << "Count of notes - " << ANotes.size() << std::endl;
+				int i;
+				std::cout << "Enter number of note : ";
+				std::cin >> i;
+				std::cout << ANotes[i - 1];
+			}
+			else std::cout << "No notes";
+			
+		}
+		std::cout << "Done\n";
+		std::cout << "Menu : <a> - Add Note, <p> - Print all notes, <c> - for clear screen, <x> Print one note, <r> - Change note, <e> - Exit \n-> ";
+		std::cin >> c;
+	}
+	std::cout << "Exit";
+}
